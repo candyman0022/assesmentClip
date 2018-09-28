@@ -56,9 +56,16 @@ public class AppTest
 
     @Test
     public void testAbortWhenTooManyArgumentsSupplied() {
-        App.main("a", "b", "c");
+        exit.expectSystemExitWithStatus(1);
+        App.main("a", "b", "c" , "d");
         assertEquals(App.MSG_TOO_MANY_ARGUMENTS + EOL +
                 App.USAGE + EOL, bytes.toString());
+    }
+
+    @Test
+    public void testFirstParamIsNotNumericFail() {
+        exit.expectSystemExitWithStatus(1);
+        App.main("notNumeric ","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
     }
 
 }
