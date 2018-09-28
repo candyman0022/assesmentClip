@@ -50,7 +50,7 @@ public class AppTest
 
     @Test
     public void systemExitWithSelectedStatusCode0() {
-        exit.expectSystemExitWithStatus(0);
+        exit.expectSystemExitWithStatus(1);
         App.main();
     }
 
