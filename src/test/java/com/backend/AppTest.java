@@ -68,4 +68,16 @@ public class AppTest
         App.main("notNumeric ","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
     }
 
+    @Test
+    public void testFirstParamIsNumericPass(){
+        exit.expectSystemExitWithStatus(0);
+        App.main("345","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
+    }
+
+    @Test
+    public void testValidCommandLineOperation() {
+        exit.expectSystemExitWithStatus(0);
+        App.main("345","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
+    }
+
 }

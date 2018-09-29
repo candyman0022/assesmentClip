@@ -1,5 +1,7 @@
 package com.backend;
 
+import com.backend.enums.TransactionType;
+
 public class App
 {
     static final String MSG_TOO_FEW_ARGUMENTS   = "too few arguments";
@@ -12,18 +14,36 @@ public class App
     {
         int numberOfArguments = args.length;
 
-        validateCorrectNumberOfAgrs(numberOfArguments);
+        validateCorrectNumberOfArgs(numberOfArguments);
+
+        TransactionType type;
 
         for (int i = 0; i < numberOfArguments; i++) {
             if (i == 0 && !isInteger(args[i])) {
                 exitWithError(MSG_FIRST_PARAM_NOT_USER_ID);
+            }
+            if(i == 1) {
+                switch (args[i]) {
+                    case "add":
+                        type = TransactionType.ADD;
+                        break;
+                    case "list":
+                        type = TransactionType.LIST;
+                        break;
+                    case "sum":
+                        type = TransactionType.SUM;
+                        break;
+                    default:
+                        type = TransactionType.SHOW;
+                        break;
+                }
             }
         }
 
         System.exit(0);
     }
 
-    private static void validateCorrectNumberOfAgrs(int numberOfArguments) {
+    private static void validateCorrectNumberOfArgs(int numberOfArguments) {
         if(numberOfArguments < 2) {
             exitWithError(MSG_TOO_FEW_ARGUMENTS);
         } else if (numberOfArguments > 3) {
@@ -46,5 +66,4 @@ public class App
             return false;
         }
     }
-
 }
