@@ -3,14 +3,13 @@ package com.backend;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import com.backend.enums.TransactionType;
+import org.junit.*;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.UUID;
 
 
 public class AppTest 
@@ -75,9 +74,21 @@ public class AppTest
     }
 
     @Test
-    public void testValidCommandLineOperation() {
-        exit.expectSystemExitWithStatus(0);
-        App.main("345","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
+    public void testValidCommandLineOperationForAdd() {
+        Assert.assertEquals(App.setTransactionType("add"), TransactionType.ADD);
+    }
+
+    @Test
+    public void testValidCommandLineOperationForShow() {
+        Assert.assertEquals(App.setTransactionType(UUID.randomUUID().toString()), TransactionType.SHOW);
+    }
+    @Test
+    public void testValidCommandLineOperationForList() {
+        Assert.assertEquals(App.setTransactionType("list"), TransactionType.LIST);
+    }
+    @Test
+    public void testValidCommandLineOperationForSum() {
+        Assert.assertEquals(App.setTransactionType("sum"), TransactionType.SUM);
     }
 
 }
