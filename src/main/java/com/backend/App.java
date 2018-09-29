@@ -34,7 +34,8 @@ public class App
                 JSONObject jsonObject = getJsonObject(args[2]);
 
                 if (jsonObject != null) {
-                    TransactionAdder adder = new TransaccionAdder(args[0],args[2]);
+                    TransactionAdder adder = new TransactionAdder(args[0],jsonObject);
+                    adder.add();
                 }
         }
 
