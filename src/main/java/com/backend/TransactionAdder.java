@@ -1,8 +1,10 @@
 package com.backend;
 
+import com.backend.model.Saver;
 import com.backend.model.Transaction;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +21,7 @@ public class TransactionAdder {
         this.json = json;
     }
 
-    public void add() {
+    public boolean add() {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
         try {
@@ -28,13 +30,19 @@ public class TransactionAdder {
             transaction.setAmount(json.getBigDecimal("amount"));
             transaction.setDate(date);
             transaction.setDescription(json.getString("description"));
-            transaction.setUserId(userId);
-            transaction.setTransactionId(UUID.randomUUID().toString());
+            transaction.setUser_id(userId);
+            transaction.setTransaction_id(UUID.randomUUID().toString());
+
+            Saver saver = new Saver(transaction);
+            return saver.save();
+
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.printf("Could not parse JSON Transaction");
+            return false;
+        } catch (IOException e) {
+            System.out.printf("Could not write file transaction");
+            return false;
         }
-
-
     }
 
     public String getUserId() {

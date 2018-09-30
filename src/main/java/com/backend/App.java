@@ -31,11 +31,17 @@ public class App
 
         switch (type) {
             case ADD:
-                JSONObject jsonObject = getJsonObject(args[2]);
+                if (args.length < 3) {
+                    exitWithError("No cumple con el numero correcto de argumentos");
+                }
+                String parsedDoubleQuotes = args[2].replaceAll("\"","\\\"");
+                JSONObject jsonObject = getJsonObject(parsedDoubleQuotes);
 
                 if (jsonObject != null) {
                     TransactionAdder adder = new TransactionAdder(args[0],jsonObject);
-                    adder.add();
+                    if(!adder.add()) {
+                        System.out.printf("ERROR adding transaction");
+                    }
                 }
         }
 

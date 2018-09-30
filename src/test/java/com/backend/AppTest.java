@@ -64,13 +64,13 @@ public class AppTest
     @Test
     public void testFirstParamIsNotNumericFail() {
         exit.expectSystemExitWithStatus(1);
-        App.main("notNumeric ","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
+        App.main("notNumeric ","add","{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-12-30\", \"user_id\": 345 }");
     }
 
     @Test
     public void testFirstParamIsNumericPass(){
         exit.expectSystemExitWithStatus(0);
-        App.main("345","add","{ “amount”: 1.23, “description”: “Joes Tacos”, “date”:”2018-12-30”, “user_id”: 345 }\n");
+        App.main("345","add","{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-12-30\", \"user_id\": 345 }");
     }
 
     @Test

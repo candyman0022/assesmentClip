@@ -1,6 +1,7 @@
 package com.backend;
 
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class TransactionAdderTest {
         JSONObject json = new JSONObject("{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-12-30\", \"user_id\": 345 }");
         TransactionAdder adder = new TransactionAdder("356", json);
 
-        adder.add();
+        Assert.assertTrue(adder.add());
     }
 
 }

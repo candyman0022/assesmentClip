@@ -11,6 +11,6 @@ public class Transaction {
     private BigDecimal amount;
     private String description;
     private Date date;
-    private String userId;
-    private String transactionId;
+    private String user_id;
+    private String transaction_id;
 }
