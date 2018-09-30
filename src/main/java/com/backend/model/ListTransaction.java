@@ -34,34 +34,27 @@ public class ListTransaction {
 
     public String[] list() {
 
-        File dir = new File(".");
-        FileFilter fileFilter = new WildcardFileFilter(userId + "_*");
-        File[] files = dir.listFiles(fileFilter);
+        File[] files = getFiles();
 
         List<Transaction> transactions = new ArrayList<>();
 
-        for (int i = 0; i < files.length; i++) {
+        for (File file : files) {
             Transaction transaction = new Transaction();
-
             try {
-                String writtenFile = new String(Files.readAllBytes(Paths.get(String.valueOf(files[i]))));
+                String writtenFile = new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
                 JSONObject transactionJSON = new JSONObject(writtenFile);
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate dateTime = LocalDate.parse(transactionJSON.getString("date"),formatter);
-                transaction.setAmount(transactionJSON.getBigDecimal("amount"));
-                transaction.setDate(dateTime);
-                transaction.setDescription(transactionJSON.getString("description"));
-                transaction.setUser_id(userId);
-                transaction.setTransaction_id(transactionJSON.getString("transaction_id"));
-                transactions.add(transaction);
+                LocalDate dateTime = getLocalDate(transactionJSON);
+                buildTransaction(transactions, transaction, transactionJSON, dateTime);
             } catch (IOException e) {
                 return new String[0];
             }
         }
-
         Collections.sort(transactions);
+        return buildOrderedTransactions(transactions);
+    }
 
+    private String[] buildOrderedTransactions(List<Transaction> transactions) {
         String[] orderedTransactions = new String[transactions.size()];
 
         for (int i = 0; i < transactions.size(); i++) {
@@ -69,5 +62,25 @@ public class ListTransaction {
             orderedTransactions[i] = object.toString();
         }
         return orderedTransactions;
+    }
+
+    private File[] getFiles() {
+        File dir = new File(".");
+        FileFilter fileFilter = new WildcardFileFilter(userId + "_*");
+        return dir.listFiles(fileFilter);
+    }
+
+    private LocalDate getLocalDate(JSONObject transactionJSON) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(transactionJSON.getString("date"),formatter);
+    }
+
+    private void buildTransaction(List<Transaction> transactions, Transaction transaction, JSONObject transactionJSON, LocalDate dateTime) {
+        transaction.setAmount(transactionJSON.getBigDecimal("amount"));
+        transaction.setDate(dateTime);
+        transaction.setDescription(transactionJSON.getString("description"));
+        transaction.setUser_id(userId);
+        transaction.setTransaction_id(transactionJSON.getString("transaction_id"));
+        transactions.add(transaction);
     }
 }

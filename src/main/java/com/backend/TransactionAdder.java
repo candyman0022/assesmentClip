@@ -22,13 +22,7 @@ public class TransactionAdder {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateTime = LocalDate.parse(json.getString("date"),formatter);
         try {
-            Transaction transaction = new Transaction();
-            transaction.setAmount(json.getBigDecimal("amount"));
-            transaction.setDate(dateTime);
-            transaction.setDescription(json.getString("description"));
-            transaction.setUser_id(userId);
-            transaction.setTransaction_id(UUID.randomUUID().toString());
-
+            Transaction transaction = getTransaction(dateTime);
             Saver saver = new Saver(transaction);
             return saver.save();
 
@@ -36,6 +30,16 @@ public class TransactionAdder {
             System.out.printf("Could not write file transaction");
             return false;
         }
+    }
+
+    private Transaction getTransaction(LocalDate dateTime) {
+        Transaction transaction = new Transaction();
+        transaction.setAmount(json.getBigDecimal("amount"));
+        transaction.setDate(dateTime);
+        transaction.setDescription(json.getString("description"));
+        transaction.setUser_id(userId);
+        transaction.setTransaction_id(UUID.randomUUID().toString());
+        return transaction;
     }
 
     public String getUserId() {

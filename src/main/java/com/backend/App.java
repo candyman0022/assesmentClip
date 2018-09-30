@@ -57,6 +57,7 @@ public class App
             case LIST:
                 ListTransaction lister = new ListTransaction(userId);
                 System.out.println(Arrays.toString(lister.list()));
+                break;
         }
 
         System.exit(0);
