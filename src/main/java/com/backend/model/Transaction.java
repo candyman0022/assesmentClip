@@ -3,14 +3,19 @@ package com.backend.model;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
     private BigDecimal amount;
     private String description;
-    private Date date;
+    private LocalDate date;
     private String user_id;
     private String transaction_id;
+
+    @Override
+    public int compareTo(Transaction o) {
+        return o.getDate().compareTo(getDate());
+    }
 }

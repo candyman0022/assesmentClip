@@ -64,7 +64,7 @@ public class AppTest
     @Test
     public void testFirstParamIsNotNumericFail() {
         exit.expectSystemExitWithStatus(1);
-        App.main("notNumeric ","add","{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-12-30\", \"user_id\": 345 }");
+        App.main("notNumeric ","add","{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-11-30\", \"user_id\": 345 }");
     }
 
     @Test

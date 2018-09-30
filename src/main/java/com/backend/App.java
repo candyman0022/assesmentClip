@@ -1,9 +1,12 @@
 package com.backend;
 
 import com.backend.enums.TransactionType;
+import com.backend.model.ListTransaction;
 import com.backend.model.LookUpTransaction;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class App
 {
@@ -51,6 +54,9 @@ public class App
                 LookUpTransaction searcher = new LookUpTransaction(userId, args[1]);
                 System.out.println(searcher.search());
                 break;
+            case LIST:
+                ListTransaction lister = new ListTransaction(userId);
+                System.out.println(Arrays.toString(lister.list()));
         }
 
         System.exit(0);
