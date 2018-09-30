@@ -1,7 +1,9 @@
 package com.backend;
 
 import com.backend.enums.TransactionType;
-import org.json.*;
+import com.backend.model.LookUpTransaction;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class App
 {
@@ -29,20 +31,26 @@ public class App
             }
         }
 
+        String userId = args[0];
         switch (type) {
             case ADD:
                 if (args.length < 3) {
                     exitWithError("No cumple con el numero correcto de argumentos");
                 }
-                String parsedDoubleQuotes = args[2].replaceAll("\"","\\\"");
+                String parsedDoubleQuotes = args[2].replaceAll("\"", "\\\"");
                 JSONObject jsonObject = getJsonObject(parsedDoubleQuotes);
 
                 if (jsonObject != null) {
-                    TransactionAdder adder = new TransactionAdder(args[0],jsonObject);
-                    if(!adder.add()) {
+                    TransactionAdder adder = new TransactionAdder(userId, jsonObject);
+                    if (!adder.add()) {
                         System.out.printf("ERROR adding transaction");
                     }
                 }
+                break;
+            case SHOW:
+                LookUpTransaction searcher = new LookUpTransaction(userId, args[1]);
+                System.out.println(searcher.search());
+                break;
         }
 
         System.exit(0);

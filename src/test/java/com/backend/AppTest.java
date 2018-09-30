@@ -91,4 +91,10 @@ public class AppTest
         Assert.assertEquals(App.setTransactionType("sum"), TransactionType.SUM);
     }
 
+    @Test
+    public void testShowTransaction() {
+        exit.expectSystemExitWithStatus(0);
+        App.main("345" ,"101d1d7f-46aa-4737-a1c2-6faf83c9016b");
+    }
+
 }
