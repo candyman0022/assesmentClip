@@ -1,18 +1,15 @@
 package com.backend.model;
 
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class SumTransaction {
 
-    String userId;
+    private String userId;
+    private Utils utils = new Utils();
 
     public SumTransaction() {
     }
@@ -23,7 +20,7 @@ public class SumTransaction {
 
     public String sum() {
 
-        File[] files = getFiles();
+        File[] files = utils.getFiles(userId);
 
         BigDecimal sum = BigDecimal.ZERO;
 
@@ -32,8 +29,7 @@ public class SumTransaction {
 
         for (File file : files) {
             try {
-                String writtenFile = new String(Files.readAllBytes(Paths.get(String.valueOf(file))));
-                JSONObject transactionJSON = new JSONObject(writtenFile);
+                JSONObject transactionJSON = utils.getJsonObject(file);
 
                 sum =  transactionJSON.getBigDecimal("amount").add(sum);
 
@@ -43,12 +39,6 @@ public class SumTransaction {
         }
 
         return "{ \"user_id\": " + userId + ", \"sum\": " + sum + " }";
-    }
-
-    private File[] getFiles() {
-        File dir = new File(".");
-        FileFilter fileFilter = new WildcardFileFilter(userId + "_*");
-        return dir.listFiles(fileFilter);
     }
 
     public String getUserId() {

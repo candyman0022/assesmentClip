@@ -12,9 +12,11 @@ import java.nio.file.Path;
 public class Saver {
 
     private Transaction transaction;
+    private Utils utils;
 
     public Saver(Transaction transaction) {
         this.transaction = transaction;
+        utils = new Utils();
     }
 
     public boolean save() throws IOException {
@@ -27,9 +29,7 @@ public class Saver {
 
         Files.write(file, byteTransaction);
 
-        String filePath = FileSystems.getDefault().getPath(fileName).toAbsolutePath().toString();
-
-        File writtenFile = new File(filePath);
+        File writtenFile = new File(utils.getFilePath(fileName));
 
         if(writtenFile != null) {
             System.out.println(jsonObject.toString());

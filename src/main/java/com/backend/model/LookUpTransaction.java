@@ -12,24 +12,25 @@ public class LookUpTransaction {
     private static final String TRANSACTION_NOT_FOUND = "Transaction not found";
     private String userId;
     private String transactionId;
+    private Utils utils;
 
     public LookUpTransaction() {
+        utils = new Utils();
     }
 
     public LookUpTransaction(String userId, String transactionId) {
         this.userId = userId;
         this.transactionId = transactionId;
+        utils = new Utils();
     }
 
     public String search() {
 
         String fileName = userId + "_" + transactionId;
 
-        String filePath = FileSystems.getDefault().getPath(fileName).toAbsolutePath().toString();
-
         String writtenFile;
         try {
-            writtenFile = new String(Files.readAllBytes(Paths.get(filePath)));
+            writtenFile = new String(Files.readAllBytes(Paths.get(utils.getFilePath(fileName))));
             if(!writtenFile.isEmpty()) {
                 JSONObject transaction = new JSONObject(writtenFile);
 

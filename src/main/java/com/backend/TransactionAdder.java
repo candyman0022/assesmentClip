@@ -11,14 +11,14 @@ import java.util.UUID;
 
 
 public class TransactionAdder {
-    public String userId;
-    public JSONObject json;
-    public TransactionAdder(String userId, JSONObject json) {
+    private String userId;
+    private JSONObject json;
+    TransactionAdder(String userId, JSONObject json) {
         this.userId = userId;
         this.json = json;
     }
 
-    public boolean add() {
+    boolean add() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateTime = LocalDate.parse(json.getString("date"),formatter);
         try {

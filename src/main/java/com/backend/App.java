@@ -11,10 +11,10 @@ import java.util.Arrays;
 
 public class App
 {
-    static final String MSG_TOO_FEW_ARGUMENTS   = "too few arguments";
+    private static final String MSG_TOO_FEW_ARGUMENTS   = "too few arguments";
     static final String MSG_TOO_MANY_ARGUMENTS = "too many arguments";
-    static final String MSG_FIRST_PARAM_NOT_USER_ID = "first param is not numberic user id";
-    static final String JSON_STRING_IS_INVALID = "json is invalid";
+    private static final String MSG_FIRST_PARAM_NOT_USER_ID = "first param is not numberic user id";
+    private static final String JSON_STRING_IS_INVALID = "json is invalid";
     static final String USAGE = "Usage: \n./application <user_id> add <transaction_json>\n./application <user_id> <transaction_id>" +
             "\n./application <user_id> list\n./application <user_id> sum\n";
 
@@ -68,7 +68,7 @@ public class App
         System.exit(0);
     }
 
-    public static TransactionType setTransactionType(String arg) {
+    static TransactionType setTransactionType(String arg) {
         TransactionType type;
         switch (arg) {
             case "add":
@@ -87,7 +87,7 @@ public class App
         return type;
     }
 
-    public static JSONObject getJsonObject(String json) {
+    private static JSONObject getJsonObject(String json) {
         try {
             return new JSONObject(json);
         } catch (JSONException ex) {
