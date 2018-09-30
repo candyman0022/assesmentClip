@@ -3,6 +3,7 @@ package com.backend;
 import com.backend.enums.TransactionType;
 import com.backend.model.ListTransaction;
 import com.backend.model.LookUpTransaction;
+import com.backend.model.SumTransaction;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ public class App
     static final String MSG_FIRST_PARAM_NOT_USER_ID = "first param is not numberic user id";
     static final String JSON_STRING_IS_INVALID = "json is invalid";
     static final String USAGE = "Usage: \n./application <user_id> add <transaction_json>\n./application <user_id> <transaction_id>" +
-            "\n";
+            "\n./application <user_id> list\n./application <user_id> sum\n";
 
     public static void main(String... args )
     {
@@ -57,6 +58,10 @@ public class App
             case LIST:
                 ListTransaction lister = new ListTransaction(userId);
                 System.out.println(Arrays.toString(lister.list()));
+                break;
+            case SUM:
+                SumTransaction total = new SumTransaction(userId);
+                System.out.println(total.sum());
                 break;
         }
 
