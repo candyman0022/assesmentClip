@@ -2,7 +2,7 @@
 test assesment project for a transaction application
 run with assesment-1.0-SNAPSHOT-jar-with-dependencies.jar
 
-Usage:
+**Usage:**
 
 java -jar
 
@@ -20,7 +20,7 @@ java -jar
 <transaction_json> needs to have it's double quotes escaped ej. "{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-10-30\", \"user_id\": 345 }"
 
 
-Example run:
+**Example run**:
 
 java -jar assesment-1.0-SNAPSHOT-jar-with-dependencies.jar 1337 add "{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-10-30\", \"user_id\": 345 }"
 

@@ -41,7 +41,7 @@ public class LookUpTransaction {
                 }
 
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             return TRANSACTION_NOT_FOUND;
         }
 
