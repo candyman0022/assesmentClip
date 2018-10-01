@@ -1,6 +1,10 @@
-package com.backend.interfaces;
+package com.backend;
 
-import com.backend.TransactionAdderFileSystem;
+import com.backend.model.TransactionAdderFileSystem;
+import com.backend.interfaces.Adder;
+import com.backend.interfaces.Calculate;
+import com.backend.interfaces.Lister;
+import com.backend.interfaces.Searcher;
 import com.backend.model.ListTransactionFileSystem;
 import com.backend.model.LookUpTransactionFileSystem;
 import com.backend.model.SumTransactionFileSystem;

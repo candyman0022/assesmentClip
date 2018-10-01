@@ -1,8 +1,6 @@
-package com.backend;
+package com.backend.model;
 
 import com.backend.interfaces.Adder;
-import com.backend.model.Saver;
-import com.backend.model.Transaction;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -12,7 +10,7 @@ import java.util.UUID;
 
 
 public class TransactionAdderFileSystem implements Adder{
-    TransactionAdderFileSystem() {
+    public TransactionAdderFileSystem() {
 
     }
 

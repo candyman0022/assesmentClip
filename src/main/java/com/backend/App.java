@@ -1,7 +1,6 @@
 package com.backend;
 
 import com.backend.enums.TransactionType;
-import com.backend.interfaces.TransactionModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.json.JSONException;
