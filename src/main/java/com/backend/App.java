@@ -26,7 +26,6 @@ public class App
         int numberOfArguments = args.length;
 
         validateCorrectNumberOfArgs(numberOfArguments);
-
         TransactionType type = TransactionType.INVALID;
 
         for (int i = 0; i < numberOfArguments; i++) {
@@ -48,7 +47,6 @@ public class App
                 JSONObject jsonObject = getJsonObject(parsedDoubleQuotes);
 
                 if (jsonObject != null) {
-
                     if (!service.getAdder().add(userId,jsonObject)) {
                         System.out.printf("ERROR adding transaction");
                     }
@@ -64,7 +62,6 @@ public class App
                 System.out.println(service.getCalculate().sum(userId));
                 break;
         }
-
         System.exit(0);
     }
 
