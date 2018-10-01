@@ -17,7 +17,9 @@ java -jar
 
 <user_id> should be an integer
 
-<transaction_json> needs to have it's double quotes escaped ej. "{ \"amount\": 1.23, \"description\": \"Joes Tacos\", \"date\":\"2018-10-30\", \"user_id\": 345 }"
+
+
+<transaction_json> needs to have it's double quotes escaped ej. "{ \\"amount\\": 1.23, \\"description\\": \\"Joes Tacos\\", \\"date\\":\\"2018-10-30\\", \\"user_id\\": 345 }"
 
 
 **Example run**:
