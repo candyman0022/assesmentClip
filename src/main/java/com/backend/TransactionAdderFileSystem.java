@@ -1,5 +1,6 @@
 package com.backend;
 
+import com.backend.interfaces.Adder;
 import com.backend.model.Saver;
 import com.backend.model.Transaction;
 import org.json.JSONObject;
@@ -10,19 +11,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 
-public class TransactionAdder {
-    private String userId;
-    private JSONObject json;
-    TransactionAdder(String userId, JSONObject json) {
-        this.userId = userId;
-        this.json = json;
+public class TransactionAdderFileSystem implements Adder{
+    TransactionAdderFileSystem() {
+
     }
 
-    boolean add() {
+    @Override
+    public boolean add(String userId, JSONObject json) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateTime = LocalDate.parse(json.getString("date"),formatter);
         try {
-            Transaction transaction = getTransaction(dateTime);
+            Transaction transaction = getTransaction(dateTime,json,userId);
             Saver saver = new Saver(transaction);
             return saver.save();
 
@@ -32,7 +31,7 @@ public class TransactionAdder {
         }
     }
 
-    private Transaction getTransaction(LocalDate dateTime) {
+    private Transaction getTransaction(LocalDate dateTime, JSONObject json, String userId) {
         Transaction transaction = new Transaction();
         transaction.setAmount(json.getBigDecimal("amount"));
         transaction.setDate(dateTime);
@@ -40,21 +39,5 @@ public class TransactionAdder {
         transaction.setUser_id(userId);
         transaction.setTransaction_id(UUID.randomUUID().toString());
         return transaction;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public JSONObject getJson() {
-        return json;
-    }
-
-    public void setJson(JSONObject json) {
-        this.json = json;
     }
 }

@@ -1,9 +1,9 @@
 package com.backend;
 
 import com.backend.enums.TransactionType;
-import com.backend.model.ListTransaction;
-import com.backend.model.LookUpTransaction;
-import com.backend.model.SumTransaction;
+import com.backend.interfaces.TransactionModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +20,10 @@ public class App
 
     public static void main(String... args )
     {
+
+        Injector injector = Guice.createInjector(new TransactionModule());
+        TransactionService service = injector.getInstance(TransactionService.class);
+
         int numberOfArguments = args.length;
 
         validateCorrectNumberOfArgs(numberOfArguments);
@@ -45,23 +49,20 @@ public class App
                 JSONObject jsonObject = getJsonObject(parsedDoubleQuotes);
 
                 if (jsonObject != null) {
-                    TransactionAdder adder = new TransactionAdder(userId, jsonObject);
-                    if (!adder.add()) {
+
+                    if (!service.getAdder().add(userId,jsonObject)) {
                         System.out.printf("ERROR adding transaction");
                     }
                 }
                 break;
             case SHOW:
-                LookUpTransaction searcher = new LookUpTransaction(userId, args[1]);
-                System.out.println(searcher.search());
+                System.out.println(service.getSearcher().search(userId, args[1]));
                 break;
             case LIST:
-                ListTransaction lister = new ListTransaction(userId);
-                System.out.println(Arrays.toString(lister.list()));
+                System.out.println(Arrays.toString(service.getLister().list(userId)));
                 break;
             case SUM:
-                SumTransaction total = new SumTransaction(userId);
-                System.out.println(total.sum());
+                System.out.println(service.getCalculate().sum(userId));
                 break;
         }
 

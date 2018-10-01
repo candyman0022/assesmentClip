@@ -1,5 +1,6 @@
 package com.backend.model;
 
+import com.backend.interfaces.Lister;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -10,17 +11,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ListTransaction {
+public class ListTransactionFileSystem implements Lister{
 
-    private String userId;
     private Utils utils = new Utils();
-    public ListTransaction(String userId) {
-    this.userId = userId;
+    ListTransactionFileSystem() {
     }
 
-
-
-    public String[] list() {
+    public String[] list(String userId) {
 
         File[] files = utils.getFiles(userId);
 
@@ -32,7 +29,7 @@ public class ListTransaction {
                 JSONObject transactionJSON = utils.getJsonObject(file);
 
                 LocalDate dateTime = getLocalDate(transactionJSON);
-                buildTransaction(transactions, transaction, transactionJSON, dateTime);
+                buildTransaction(transactions, transaction, transactionJSON, dateTime,userId);
             } catch (IOException e) {
                 return new String[0];
             }
@@ -56,20 +53,12 @@ public class ListTransaction {
         return LocalDate.parse(transactionJSON.getString("date"),formatter);
     }
 
-    private void buildTransaction(List<Transaction> transactions, Transaction transaction, JSONObject transactionJSON, LocalDate dateTime) {
+    private void buildTransaction(List<Transaction> transactions, Transaction transaction, JSONObject transactionJSON, LocalDate dateTime, String userId) {
         transaction.setAmount(transactionJSON.getBigDecimal("amount"));
         transaction.setDate(dateTime);
         transaction.setDescription(transactionJSON.getString("description"));
         transaction.setUser_id(userId);
         transaction.setTransaction_id(transactionJSON.getString("transaction_id"));
         transactions.add(transaction);
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }

@@ -1,5 +1,6 @@
 package com.backend.model;
 
+import com.backend.interfaces.Searcher;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -7,24 +8,16 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class LookUpTransaction {
+public class LookUpTransactionFileSystem implements Searcher{
 
     private static final String TRANSACTION_NOT_FOUND = "Transaction not found";
-    private String userId;
-    private String transactionId;
     private Utils utils;
 
-    public LookUpTransaction() {
+    public LookUpTransactionFileSystem() {
         utils = new Utils();
     }
 
-    public LookUpTransaction(String userId, String transactionId) {
-        this.userId = userId;
-        this.transactionId = transactionId;
-        utils = new Utils();
-    }
-
-    public String search() {
+    public String search(String userId, String transactionId) {
 
         String fileName = userId + "_" + transactionId;
 
@@ -39,29 +32,10 @@ public class LookUpTransaction {
                 } else {
                     return TRANSACTION_NOT_FOUND;
                 }
-
             }
         } catch (Exception e) {
             return TRANSACTION_NOT_FOUND;
         }
-
         return TRANSACTION_NOT_FOUND;
-
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
     }
 }
